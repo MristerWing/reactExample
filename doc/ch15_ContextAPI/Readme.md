@@ -27,3 +27,7 @@ exprot default RenderPropsSample;
 ```
 
 -   RenderPropsSample에 children props로 피라미터에 2를 곱해서 반환하는 함수를 전달하면, 해당 컴포넌트는 이 함수에 5를 인자로 넣어서 결과:10을 렌더링한다.
+
+### useContext
+
+-   함수형 컴포넌트에서 Render Props패턴이 아니라 useContext Hook을 사용하면 간단하게 Context값을 조회할 수 있다.
