@@ -5,3 +5,4 @@
 *   설치된 패키지
     1. react-redux
     2. redux-devtools-extension
+    3. redux
