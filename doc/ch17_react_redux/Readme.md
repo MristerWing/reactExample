@@ -102,3 +102,46 @@ export default connect(
 )(targetContainer);
 
 ```
+
+### redux-actions 라이브러리
+
+1. redux-actions 라이브러리는 액션생성 함수를 더 짧은 코드로 작성할 수 있게 도와주는 라이브러리이다.
+2. 가장 큰 특징은 리듀서를 작성할 때 switch/case문이 아니라 hadleActions라는 함수를 사용하여 각 액션마다 업데이트 함수를 설정하는 형식으로 작성이 가능한 점이다.
+
+```npm
+yarn add redux-actions
+```
+
+3. redux-actions에는 액션생성함수를 간략하게 해주는 `createAction`함수와 reducer생성함수인 `hadleActions`함수로 구성되어 있다.
+
+    1. `createAction`: `createAction(액션 타입)`으로 작성한다. 이후 액션에 필요로 하는 추가 데이터가 있을 경우 피라미터로 전달하며 이를 payload라고 칭한다.
+
+    ```javascript
+    const ACTION = 'example/ACTION';
+    const action = createAction(ACTION);
+    const loadAction = action('Hello World');
+
+    /*
+        { type: ACTION, payload: 'Hello World' }
+    */
+
+    // payload를 액션생성함수에서 받아온것을 넣는게 아니라 변형을 시도할 경우
+    const action = createAction(ACTION, text => `${text}!`);
+
+    /*
+        { type: ACTION, payload: 'Hello World!' }
+        뒤에 !가 붙게 변형된다
+    */
+    ```
+
+    2. `hadleActions`: 기존의 reducer함수와 달리 switch/case를 사용하지 않는다. 사용시 함수의 첫 번째 인자에는 각 액션에 대한 업데이트(동작)을, 두 번째 인자에는 초기상태 값을 넣어준다.
+
+    ```javascript
+    hadleActions(
+        {
+            [update1]: (state, action) => ({ work... }),
+            [update2]: (state, action) => ({ work... })
+        },
+        initialState
+    )
+    ```

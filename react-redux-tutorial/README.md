@@ -6,3 +6,5 @@
     1. react-redux
     2. redux-devtools-extension
     3. redux
+    4. redux-actions
+    5. immer
