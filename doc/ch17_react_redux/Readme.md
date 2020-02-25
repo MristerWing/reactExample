@@ -145,3 +145,49 @@ yarn add redux-actions
         initialState
     )
     ```
+
+### Hooks를 사용하여 컨테이너 컴포넌트 제작
+
+1.  `connect` 함수가 아니라 react-redux에서 제공하는 Hooks를 사용하여 만들 수도 있다.
+
+2.  종류는 다음과 같다.
+
+    1. useSelector: redux의 상태 조회를 하는 Hook이다.
+
+    ```javascript
+    const result = useSelector(상태 선택 함수);
+    ```
+
+    이때 상태 선택 함수는 mapStateToProps와 형태가 같다.
+
+    2. useDispatch: 이 Hook은 컴포넌트 내부에서 스토어의 내장 함수 dispatch를 사용할 수 있게 해주는 함수이다.
+
+    ```javascript
+    const dispatch = useDispatch();
+    dispatch({ type: 'ACTION' });
+    ```
+
+    useDispatch를 사용할 때 주의해야 할점은 dispatch가 발생할때마다 컴포넌트가 리 렌더링되어서 함수가 새로 발생한다는 점이다. 이를 주의하여 useCallback로 함수를 감싸주어야 할 필요가 있다.
+
+    3. useStore: 컴포넌트 내부에서 리덕스 스토어 객체를 직접 접근이 가능하게 해주는 함수이다.
+
+    ```javascript
+    const store = useStore();
+    store.dispatch({ type: 'ACTION' });
+    store.getState();
+    ```
+
+    4. useActions: 원래 react-redux에 내장되려고 했으나, 개발진에서 필요 없다고 판단하여 제외된 Hook이다.  
+       [Link](https://react-redux.js.org/next/api/hooks#recipe-useactions)
+
+---
+
+### connect 함수와 Hooks의 가장 큰 차이점
+
+1. connect함수로 컴포넌트를 만들 경우 해당 컨테이너 컴포넌트의 부모 컴포넌트가 리렌더링 될 때 해당 컴포넌트의 props가 바뀌지 않을 경우 리 렌더링이 자동으로 방지되어 성능이 최적화 된다.
+
+2. 하지만 useSelector를 사용하여 리덕스 상태를 조회할 경우 connect함수와 달리 자동으로 최적화 작업이 이루어지지 않는다. 이를 해결하기 위해서는 React.memo를 컨테이너 컴포넌트에 사용해 주어야 한다.
+
+```javascript
+export default React.memo(Container);
+```
